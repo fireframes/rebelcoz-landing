@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RebelC0z — Brewing Agents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rc-bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .rc-bubble {
+      position: fixed;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.015);
+      animation: rise linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(110vh); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    .rc-center {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 640px;
+      width: 100%;
+    }
+
+    .rc-co2-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      border: 0.5px solid rgba(255,255,255,0.12);
+      padding: 6px 16px;
+      border-radius: 2px;
+    }
+
+    .rc-logo {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: clamp(64px, 13vw, 112px);
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      line-height: 1;
+      margin: 0 0 0.2rem;
+    }
+
+    .rc-sub {
+      font-size: 0.38em;
+      vertical-align: sub;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0;
+    }
+
+    .rc-tagline {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(11px, 1.8vw, 13px);
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin: 0 0 2.5rem;
+    }
+
+    .rc-tagline span { color: rgba(255,255,255,0.85); }
+
+    .rc-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(255,255,255,0.18);
+      margin: 0 auto 2.5rem;
+    }
+
+    .rc-notify {
+      display: flex;
+      max-width: 360px;
+      margin: 0 auto 2.5rem;
+      border: 0.5px solid rgba(255,255,255,0.18);
+    }
+
+    .rc-notify input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 13px 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: #fff;
+      letter-spacing: 0.05em;
+    }
+
+    .rc-notify input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .rc-notify button {
+      background: #fff;
+      color: #0a0a0a;
+      border: none;
+      padding: 13px 18px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .rc-notify button:hover { opacity: 0.85; }
+
+    .rc-confirmed {
+      display: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+    }
+
+    .rc-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .rc-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .rc-links a:hover { color: rgba(255,255,255,0.75); }
+
+    .rc-pillars {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .rc-pillar {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.18);
+    }
+
+    .rc-pillar::before { content: '— '; }
+
+    .rc-footer {
+      position: fixed;
+      bottom: 1.25rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.12);
+      text-transform: uppercase;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="rc-bg-grid"></div>
+
+  <div class="rc-center">
+    <div class="rc-co2-badge">Brewing Agents · Est. 2025</div>
+    <div class="rc-logo">RebelC0<span class="rc-sub">z</span></div>
+    <div class="rc-tagline"><span>Brewing</span> agents · <span>Automating</span> the future</div>
+    <div class="rc-divider"></div>
+
+    <div class="rc-notify" id="notify-form">
+      <input type="email" placeholder="your@email.com" id="rc-email" />
+      <button onclick="handleNotify()">Notify me</button>
+    </div>
+    <div class="rc-confirmed" id="rc-confirmed">✓ &nbsp; You're on the list</div>
+
+    <div class="rc-links">
+      <a href="https://x.com/rebelc0z" target="_blank">X</a>
+      <a href="https://github.com/rebelc0z" target="_blank">GitHub</a>
+      <a href="https://instagram.com/rebelc0z" target="_blank">Instagram</a>
+    </div>
+
+    <div class="rc-pillars">
+      <span class="rc-pillar">AI Agents</span>
+      <span class="rc-pillar">Automation</span>
+      <span class="rc-pillar">Craft Brewing</span>
+    </div>
+  </div>
+
+  <div class="rc-footer">rebelc0z.com · Bangkok · 2025</div>
+
+  <script>
+    for (let i = 0; i < 18; i++) {
+      const b = document.createElement('div');
+      b.className = 'rc-bubble';
+      const size = Math.random() * 12 + 4;
+      b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*10}s;`;
+      document.body.appendChild(b);
+    }
+
+    function handleNotify() {
+      const email = document.getElementById('rc-email').value;
+      if (!email || !email.includes('@')) return;
+      document.getElementById('notify-form').style.display = 'none';
+      document.getElementById('rc-confirmed').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
