@@ -71,20 +71,30 @@
     }
 
     .rc-logo {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .rc-logo-text {
       font-family: 'Oswald', sans-serif;
       font-weight: 700;
       font-size: clamp(64px, 13vw, 112px);
-      letter-spacing: 0.02em;
-      color: #ffffff;
+      color: #fff;
       line-height: 1;
-      margin: 0 0 0.2rem;
+      letter-spacing: 0.02em;
     }
 
-    .rc-sub {
-      font-size: 0.38em;
-      vertical-align: sub;
-      color: rgba(255,255,255,0.45);
+    .rc-logo-z {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: clamp(40px, 8vw, 70px);
+      color: rgba(255,255,255,0.5);
+      line-height: 1;
       letter-spacing: 0;
+      margin-bottom: -10px;
     }
 
     .rc-tagline {
@@ -93,7 +103,7 @@
       color: rgba(255,255,255,0.35);
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin: 0 0 2.5rem;
+      margin: 1.5rem 0 2.5rem;
     }
 
     .rc-tagline span { color: rgba(255,255,255,0.85); }
@@ -206,7 +216,9 @@
 
   <div class="rc-center">
     <div class="rc-co2-badge">Brewing Agents · Est. 2025</div>
-    <div class="rc-logo">RebelC0<span class="rc-sub">z</span></div>
+    <div class="rc-logo">
+      <span class="rc-logo-text">RebelC0</span><span class="rc-logo-z">z</span>
+    </div>
     <div class="rc-tagline"><span>Brewing</span> agents · <span>Automating</span> the future</div>
     <div class="rc-divider"></div>
 
