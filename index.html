@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RebelC0z — Brewing Agents</title>
+  <title>RebelCOz · Brewing Agents</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
@@ -59,7 +59,7 @@
 
     .rc-co2-badge {
       display: inline-block;
-      font-family: 'Space Mono', monospace;
+      font-family: 'Roboto Regular', monospace;
       font-size: 10px;
       letter-spacing: 0.25em;
       color: rgba(255,255,255,0.35);
@@ -215,9 +215,9 @@
   <div class="rc-bg-grid"></div>
 
   <div class="rc-center">
-    <div class="rc-co2-badge">Brewing Agents · Est. 2025</div>
+    <div class="rc-co2-badge">Agents Brewing Agency · Est. 2025</div>
     <div class="rc-logo">
-      <span class="rc-logo-text">RebelC0</span><span class="rc-logo-z">z</span>
+      <span class="rc-logo-text">RebelCO</span><span class="rc-logo-z">z</span>
     </div>
     <div class="rc-tagline"><span>Brewing</span> agents · <span>Automating</span> the future</div>
     <div class="rc-divider"></div>
@@ -229,9 +229,9 @@
     <div class="rc-confirmed" id="rc-confirmed">✓ &nbsp; You're on the list</div>
 
     <div class="rc-links">
-      <a href="https://x.com/rebelc0z" target="_blank">X</a>
-      <a href="https://github.com/rebelc0z" target="_blank">GitHub</a>
-      <a href="https://instagram.com/rebelc0z" target="_blank">Instagram</a>
+      <a href="https://github.com/rebelcoz" target="_blank">GitHub</a>
+      <a href="https://x.com/rebelcoz" target="_blank">X</a>
+      <!-- <a href="https://instagram.com/rebelc0z" target="_blank">Instagram</a> -->
     </div>
 
     <div class="rc-pillars">
@@ -252,11 +252,32 @@
       document.body.appendChild(b);
     }
 
-    function handleNotify() {
+    async function handleNotify() {
       const email = document.getElementById('rc-email').value;
       if (!email || !email.includes('@')) return;
-      document.getElementById('notify-form').style.display = 'none';
-      document.getElementById('rc-confirmed').style.display = 'block';
+
+      const btn = document.querySelector('#notify-form button');
+      btn.textContent = '...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('https://formspree.io/f/mlgoraya', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        if (res.ok) {
+          document.getElementById('notify-form').style.display = 'none';
+          document.getElementById('rc-confirmed').style.display = 'block';
+        } else {
+          btn.textContent = 'Try again';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
     }
   </script>
 </body>
